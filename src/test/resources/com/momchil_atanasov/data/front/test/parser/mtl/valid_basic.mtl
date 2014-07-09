@@ -1,0 +1,13 @@
+# This is a sample material
+newmtl TestMaterial 
+Ka 1.0 0.5 0.1
+Kd 0.5 0.7 0.3
+Ks 0.2 0.4 0.8
+Tf 0.3 1.0 0.4
+Ns 650
+d 0.7
+map_Ka ambient.png
+map_Kd diffuse.png
+map_Ks specular.png
+map_Ns specular_exponent.png
+map_d dissolve.png

@@ -1,0 +1,10 @@
+# eclipse resources
+.settings/
+.project
+.classpath
+
+# binary folders
+/gen
+/build
+/bin
+/target

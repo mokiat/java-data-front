@@ -1,0 +1,12 @@
+# Comment at file start
+v -1.0 1.0 -1.0
+#Comment that is right next to special char
+vt 1.0 0.0
+# This comment uses
+# two lines
+vn 1.0 0.0 0.0
+#
+o MyObject
+# Previous comment was empty. This one contain the # character twice.
+f 1 2 3 4
+# Comment at file end

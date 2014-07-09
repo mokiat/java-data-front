@@ -1,0 +1,8 @@
+Ka spectral ambient.rfl 0.5
+Kd spectral diffuse.rfl 0.5
+Ks spectral specular.rfl 0.5
+Tf spectral transmission.rfl 0.5
+Ka xyz 0.3 0.4 0.5
+Kd xyz 0.3 0.4 0.5
+Ks xyz 0.3 0.4 0.5
+Tf xyz 0.3 0.4 0.5

@@ -3,7 +3,7 @@ java-data-front
 
 A Java library for reading and writing Wavefront 3D model resources (OBJ, MTL).
 
-**Note: ** Though planned in the future, it is not possible to serialize OBJ or MTL resources at the moment.
+**Note:** Though planned in the future, it is not possible to serialize OBJ or MTL resources at the moment.
 
 The OBJ and MTL file formats are one of the most popular 3D model formats used at the moment. This is mainly due to their simplicity.
 
@@ -38,7 +38,7 @@ I am not sure what is the exact history of these file formats, but I believe the
 
 Using this library is meant to be easy and straightforward. All you need to do is instantiate an `OBJParser` and pass it an `InputStream` to your OBJ resource.
 
-**Example: **
+**Example:**
 
 ```java
 // Open a stream to your OBJ resource
@@ -61,7 +61,7 @@ Let's look at the API in a bit more detail.
 
 So parsing is straightforward. You saw that in the previous code snippet. What's important to keep in mind is that you can have any InputStream. This means that you could open your model from a Java resource or a remote HTTP resource.
 
-**Example: **
+**Example:**
 
 ```java
 final URL url = new URL("http://www.example.org/models/example.obj");
@@ -79,7 +79,7 @@ Additionally, you have the `getMaterialLibraries()` method. This one provides yo
 
 The most interesting of methods is the `getObjects()` method which lists all of the objects that are defined in the OBJ resource. These are the entities you would usually iterate through to get the mesh data.
 
-**Example: **
+**Example:**
 
 ```java
 for (OBJObject object : model.getObjects()) {
@@ -93,7 +93,7 @@ for (OBJObject object : model.getObjects()) {
 
 One thing that does not exactly match the OBJ specification is the `OBJMesh` concept. This object is used to encapsulate any material dependencies of the object and corresponding mesh. To be more precise, it is possible that a single `OBJObject` has triangles with different materials. The `OBJMesh` is used to group these different material dependencies.
 
-**Example: **
+**Example:**
 
 ```java
 final OBJMesh mesh = ...; // You already know how to get this.
@@ -105,7 +105,7 @@ You would use the `materialName` to select the proper material to use for render
 
 Now that you know how to get to the distinct faces and which material to use, what's left is to get their mesh data.
 
-**Example: **
+**Example:**
 
 ```java
 final OBJFace face = ...; // You already know how to get this.
@@ -145,7 +145,7 @@ for (MTLMaterial material : library.getMaterials()) {
 
 The `MTLMaterial` object represents a material that is defined in the MTL resource. You can have many of these defined in a single resource. Each of these has a name and some generic material data like diffuse color, ambient color, specular color, etc.
 
-**Example: **
+**Example:**
 
 ```java
 final MTLMaterial material = ...; // You already know how to get this.

@@ -1,6 +1,8 @@
 java-data-front
 ===============
 
+![](https://travis-ci.org/momchil-atanasov/java-data-front.svg?branch=master)
+
 A Java library for reading and writing Wavefront 3D model resources (OBJ, MTL).
 
 **Note:** Though planned in the future, it is not possible to serialize OBJ or MTL resources at the moment.

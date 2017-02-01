@@ -9,7 +9,7 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<url>http://momchil-atanasov.com</url>
+	<url>https://github.com/mokiat/java-data-front</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

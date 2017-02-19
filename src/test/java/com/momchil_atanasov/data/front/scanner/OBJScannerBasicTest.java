@@ -42,19 +42,19 @@ public class OBJScannerBasicTest {
 	@Test
 	public void testVertices() {
 		handler.assertVertexCount(4);
-		handler.assertVertex(index++, -1.0f, 1.0f, -1.0f, null);
-		handler.assertVertex(index++, -1.0f, -1.0f, 1.0f, null);
-		handler.assertVertex(index++, 1.0f, -1.0f, -1.0f, null);
-		handler.assertVertex(index++, 1.0f, 1.0f, 1.0f, null);
+		handler.assertVertex(index++, -1.0f, 1.0f, -1.0f, 1.0f);
+		handler.assertVertex(index++, -1.0f, -1.0f, 1.0f, 0.9f);
+		handler.assertVertex(index++, 1.0f, -1.0f, -1.0f, 0.8f);
+		handler.assertVertex(index++, 1.0f, 1.0f, 1.0f, 0.7f);
 	}
 	
 	@Test
 	public void testTexCoords() {
 		handler.assertTexCoordCount(4);
-		handler.assertTexCoord(index++, 0.0f, 0.0f, null);
-		handler.assertTexCoord(index++, 1.0f, 1.0f, null);
-		handler.assertTexCoord(index++, 1.0f, 0.0f, null);
-		handler.assertTexCoord(index++, 0.0f, 1.0f, null);
+		handler.assertTexCoord(index++, 0.0f, 0.0f, 0.0f);
+		handler.assertTexCoord(index++, 1.0f, 1.0f, 0.5f);
+		handler.assertTexCoord(index++, 1.0f, 0.0f, 1.0f);
+		handler.assertTexCoord(index++, 0.0f, 1.0f, 0.3f);
 	}
 	
 	@Test

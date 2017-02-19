@@ -5,8 +5,6 @@ java-data-front
 
 A Java library for reading Wavefront 3D model resources (OBJ, MTL).
 
-**Note:** Though planned in the future, it is not possible to serialize OBJ or MTL resources at the moment.
-
 The OBJ and MTL file formats are one of the most popular 3D model formats used at the moment. This is mainly due to their simplicity.
 
 OBJ files are used to describe the coordinates, connections and shapes that make up a 3D model.
@@ -34,9 +32,9 @@ d 0.7
 map_Kd vehicle.png
 ```
 
-I am not sure what is the exact history of these file formats, but I believe they were first introduced by the Wavefront Technologies company for their 3D software. Now they are available in practically all 3D modeling softwares.
+The `obj` and `mtl` file formats were originally developed by the Wavefront Technologies company for their 3D visualizer software. Currently, they are available in practically all 3D modeling solutions.
 
-## Parsing OBJs
+## Loading OBJ resources
 
 Using this library is meant to be easy and straightforward. All you need to do is instantiate an `OBJParser` and pass it an `InputStream` to your OBJ resource.
 
@@ -44,42 +42,27 @@ Using this library is meant to be easy and straightforward. All you need to do i
 
 ```java
 // Open a stream to your OBJ resource
-final InputStream in = new FileInputStream("example.obj");
+try (InputStream in = new FileInputStream("example.obj")) {
+  // Create an OBJParser and parse the resource
+  final IOBJParser parser = new OBJParser();
+  final OBJModel model = parser.parse(in);
 
-// Create an OBJParser and parse the resource
-final IOBJParser parser = new OBJParser();
-final OBJModel model = parser.parse(in);
-
-// Use the model representation to get some basic info
-System.out.println(MessageFormat.format(
-        "OBJ model has {0} vertices, {1} normals, {2} texture coordinates, and {3} objects.",
-        model.getVertices().size(),
-        model.getNormals().size(),
-        model.getTexCoords().size(),
-        model.getObjects().size()));
+  // Use the model representation to get some basic info
+  System.out.println(MessageFormat.format(
+          "OBJ model has {0} vertices, {1} normals, {2} texture coordinates, and {3} objects.",
+          model.getVertices().size(),
+          model.getNormals().size(),
+          model.getTexCoords().size(),
+          model.getObjects().size()));  
+}
 ```
 
-Let's look at the API in a bit more detail.
+When you parse an OBJ resource, you get a `OBJModel` representation.
+We use the `getVertices`, `getNormals`, and `getTexCoords` methods to get access to all of the vertices, normals and texture coordinates respectively that are defined in the OBJ resource. Since these can be shared between multiple objects, their getter methods are defined on the root `OBJModel` element.
 
-So parsing is straightforward. You saw that in the previous code snippet. What's important to keep in mind is that you can have any InputStream. This means that you could open your model from a Java resource or a remote HTTP resource.
+Additionally, you have the `getMaterialLibraries` method. It provides a list of all the material dependencies that were declared in the OBJ resource. The method returns a list of strings, representing resources that can be parsed via a `MTLParser` parser. It is up to your implementation to locate those resources and process them, as the `OBJParser` has no way of knowing from where the OBJ resource originates.
 
-**Example:**
-
-```java
-final URL url = new URL("http://www.example.org/models/example.obj");
-final InputStream in = url.openStream();
-final IOBJParser parser = new OBJParser();
-final OBJModel model = parser.parse(in);
-// You know what to do next...
-```
-
-No matter where you load the OBJ resource from, you always get the same `OBJModel` model representation.
-
-As you've seen above, we used the `getVertices()`, `getNormals()`, and `getTexCoords()` methods. These give you access to all of the vertices, normals and texture coordinates respectively that were defined in the OBJ resource. Since these are shared between objects, that's why they are defined on the root `OBJModel` element.
-
-Additionally, you have the `getMaterialLibraries()` method. This one provides you a list of all the material dependencies that were declared in the OBJ resource. The method returns a list of strings. You will need to use the `MTLParser` to load these resources. It is up to you to locate those resources, though. Since the parser has no idea from where the original OBJ resource is being parsed, it cannot know how to resolve relative dependencies (could be file, could be URL, etc.).
-
-The most interesting of methods is the `getObjects()` method which lists all of the objects that are defined in the OBJ resource. These are the entities you would usually iterate through to get the mesh data.
+The `getObjects` method lists all of the objects that are defined in the OBJ resource. These are the entities you would usually iterate through to get the mesh data.
 
 **Example:**
 
@@ -98,14 +81,14 @@ One thing that does not exactly match the OBJ specification is the `OBJMesh` con
 **Example:**
 
 ```java
-final OBJMesh mesh = ...; // You already know how to get this.
+final OBJMesh mesh = ...;
 final String materialName = mesh.getMaterialName();
 final List<OBJFace> faces = mesh.getFaces();
 ```
 
-You would use the `materialName` to select the proper material to use for rendering the list of `OBJFace` instances. You will need to locate the material in one of the `OBJMaterial` resources that you have previously loaded as instructed by `getMaterialLibraries()`.
+One would use the `materialName` value to select the proper material to use for rendering the list of `OBJFace` instances. The actual material would need to have been parsed in advance (as explained above) and probably stored in a map structure for easy access.
 
-Now that you know how to get to the distinct faces and which material to use, what's left is to get their mesh data.
+Knowing how to get to all faces and related materials, one needs a way to get the mesh data of each individual face.
 
 **Example:**
 
@@ -128,35 +111,37 @@ for (OBJDataReference reference : face.getReferences()) {
 }
 ```
 
-A face can be defined by arbitrary number of vertices, as long as they are more than three. This is why each has the `getReferences()` method that returns a list of `OBJDataReference` objects. This object represents a single vertex and allows you to locate the positional, normal and texture coordinate information for that vertex. This happens through the usage for indices that point at the master data (i.e. `getVertices()`, `getNormals()`, `getTexCoords()`). There are helper methods like `hasNormalIndex()` that help you determine if the vertex has a normal declared and `getNormal` that automatically locates the `OBJNormal` instance for you.
+A face can be defined by arbitrary number of vertices, as long as they are more than three. This is why each face has the `getReferences` method that returns a list of `OBJDataReference` objects. This object represents a single vertex and allows you to locate the positional, normal and texture coordinate information for that vertex. This happens through the usage for indices that point at the master data (the one available through `getVertices`, `getNormals`, `getTexCoords`). There are helper methods like `hasNormalIndex` that help you determine if the vertex has a normal declared and `getNormal` that automatically locates the `OBJNormal` instance for you.
 
 
-## Parsing MTLs
-Parsing material libraries is performed in the same way as objects. All you need to do is instantiate an `MTLParser` and pass it an `InputStream` to your MTL resource.
+## Loading MTL resources
+
+Parsing material libraries is performed in the same way as objects. All one needs to do is instantiate an `MTLParser` and pass it an `InputStream` to the MTL resource.
 
 **Example:**
 
 ```java
-final InputStream in = new FileInputStream("example.mtl");
-final IMTLParser parser = new MTLParser();
-final MTLLibrary library = parser.parse(in);
-for (MTLMaterial material : library.getMaterials()) {
-	System.out.println(MessageFormat.format("Material with name ``{0}``.", material.getName()));
+try (InputStream in = new FileInputStream("example.mtl")) {
+  final IMTLParser parser = new MTLParser();
+  final MTLLibrary library = parser.parse(in);
+  for (MTLMaterial material : library.getMaterials()) {
+  	System.out.println(MessageFormat.format("Material with name `{0}`.", material.getName()));
+  }  
 }
 ```
 
-The `MTLMaterial` object represents a material that is defined in the MTL resource. You can have many of these defined in a single resource. Each of these has a name and some generic material data like diffuse color, ambient color, specular color, etc.
+The `MTLMaterial` object represents a material that is defined in the MTL resource. There can be a number of these defined in a single MTL resource. Each of these has a name and some generic material data like diffuse color, ambient color, specular color, etc.
 
 **Example:**
 
 ```java
-final MTLMaterial material = ...; // You already know how to get this.
+final MTLMaterial material = ...;
 final MTLColor diffuseColor = material.getDiffuseColor();
 final MTLColor ambientColor = material.getAmbientColor();
 final MTLColor specularColor = material.getSpecularColor();
 ```
 
-As you can see, parsing MTL resources is not that different from parsing OBJ resources. You wouldn't usually parse MTL resources on their own, though. Most often you would use the information from the OBJ resource to locate the MTL resources and load them.
+One would rarely parse MTL files separately. Often, this would be as part of the parsing of an OBJ file.
 
 **Example:**
 
@@ -167,19 +152,51 @@ final IMTLParser mtlParser = new MTLParser();
 final InputStream objStream = ...; // Depends on your use case.
 final OBJModel model = objParser.parse(objStream);
 for (String libraryReference : model.getMaterialLibraries()) {
-	final InputStream mtlStream = ...; // You will need to resolve this based on `libraryReference`
+	final InputStream mtlStream = ...; // You will need to resolve this based on `libraryReference` and the storage used
     final MTLLibrary library = mtlParser.parse(mtlStream);
-    // Do something with the library. Maybe store it for later usage.
+    // Do something with the library. Maybe store it in a map for later usage.
 }
 ```
 
-## Notes
+## Setting Up
 
-This library was implemented to support other projects of mine. As such, it supports only a subset of the OBJ and MTL specifications (which are large). The features that are provided should be sufficient for most use cases.
+Even though this project relies on Maven for packaging, it has not been published to the central Maven repository. Following are a number of approaches to get the library imported in your project.
 
-Though not shown in the code snippets above, it is important that you always close any `InputStream` objects as that is not done by the API. I have omitted that on purpose to keep the snippets simple to read.
+### JitPack
 
-If you want to see an application that already uses this library, take a look at **[ModelViewer3D](https://play.google.com/store/apps/details?id=com.momchil_atanasov.android.modelviewer)**.
+An amazing web page that allows one to import Maven projects directly from GitHub. It is ideal for publishing new and small projects like this one.
+One only needs to add the following configuration in their `pom.xml` file to get the library included.
+
+```xml
+<repositories>
+	<repository>
+		<id>jitpack.io</id>
+		<url>https://jitpack.io</url>
+	</repository>
+</repositories>
+
+<dependencies>
+	<dependency>
+		<groupId>com.github.mokiat</groupId>
+		<artifactId>java-data-front</artifactId>
+		<version>v2.0.0</version>
+	</dependency>
+</dependencies>
+```
+
+JitPack works with other packaging frameworks as well. Check the [official webpage](https://jitpack.io/) for more information.
+
+### Packaging
+
+If `JitPack` is not an option for your use case, then you could package the `jar` files into your project. They are available for download from the [Releases](https://github.com/mokiat/java-data-front/releases) section of the repository.
+
+
+### Local Maven repository
+
+You can use a set of commands to import the `jar` files into your local Maven repository. Following are two available approaches. (I find the first one to do the job)
+
+* [http://maven.apache.org/plugins/maven-install-plugin/examples/custom-pom-installation.html](http://maven.apache.org/plugins/maven-install-plugin/examples/custom-pom-installation.html)
+* [http://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html](http://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html)
 
 ## License
 

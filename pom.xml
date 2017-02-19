@@ -4,9 +4,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.momchil_atanasov</groupId>
-	<artifactId>com.momchil_atanasov.data.front</artifactId>
-	<version>1.0.0</version>
+	<groupId>com.mokiat</groupId>
+	<artifactId>com.mokiat.data.front</artifactId>
+	<version>2.0.0</version>
 	<packaging>jar</packaging>
 
 	<url>https://github.com/mokiat/java-data-front</url>

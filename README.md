@@ -3,7 +3,7 @@ java-data-front
 
 [![Build Status](https://travis-ci.org/mokiat/java-data-front.svg?branch=master)](https://travis-ci.org/mokiat/java-data-front)
 
-A Java library for reading and writing Wavefront 3D model resources (OBJ, MTL).
+A Java library for reading Wavefront 3D model resources (OBJ, MTL).
 
 **Note:** Though planned in the future, it is not possible to serialize OBJ or MTL resources at the moment.
 

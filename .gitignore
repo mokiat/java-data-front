@@ -3,6 +3,9 @@
 .project
 .classpath
 
+# vscode resources
+.vscode/
+
 # binary folders
 /gen
 /build

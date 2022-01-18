@@ -1,7 +1,7 @@
 java-data-front
 ===============
 
-[![Build Status](https://travis-ci.org/mokiat/java-data-front.svg?branch=master)](https://travis-ci.org/mokiat/java-data-front)
+![maven verify status](https://github.com/mokiat/java-data-front/actions/workflows/maven.yml/badge.svg?branch=master)
 
 A Java library for reading Wavefront 3D model resources (OBJ, MTL).
 

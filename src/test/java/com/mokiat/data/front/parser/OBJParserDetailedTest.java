@@ -24,14 +24,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mokiat.data.front.parser.IOBJParser;
-import com.mokiat.data.front.parser.OBJDataReference;
-import com.mokiat.data.front.parser.OBJFace;
-import com.mokiat.data.front.parser.OBJMesh;
-import com.mokiat.data.front.parser.OBJModel;
-import com.mokiat.data.front.parser.OBJObject;
-import com.mokiat.data.front.parser.OBJParser;
-import com.mokiat.data.front.parser.OBJTexCoord;
 import com.mokiat.data.front.test.WFResourceFixture;
 
 public class OBJParserDetailedTest extends AbstractOBJParserTest {

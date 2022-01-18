@@ -22,8 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mokiat.data.front.parser.MTLMaterial;
-
 public class MTLParserBasicTest extends AbstractMTLParserTest {
 	
 	private MTLMaterial material;

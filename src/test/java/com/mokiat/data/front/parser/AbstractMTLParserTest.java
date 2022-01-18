@@ -18,10 +18,6 @@ package com.mokiat.data.front.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import com.mokiat.data.front.parser.IMTLParser;
-import com.mokiat.data.front.parser.MTLColor;
-import com.mokiat.data.front.parser.MTLLibrary;
-import com.mokiat.data.front.parser.MTLParser;
 import com.mokiat.data.front.test.WFResourceFixture;
 
 public class AbstractMTLParserTest {

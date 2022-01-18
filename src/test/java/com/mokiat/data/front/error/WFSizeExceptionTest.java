@@ -22,8 +22,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.mokiat.data.front.error.WFSizeException;
-
 public class WFSizeExceptionTest extends AbstractWFExceptionTest {
 	
 	@Test

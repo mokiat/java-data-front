@@ -25,14 +25,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mokiat.data.front.parser.OBJDataReference;
-import com.mokiat.data.front.parser.OBJFace;
-import com.mokiat.data.front.parser.OBJMesh;
-import com.mokiat.data.front.parser.OBJNormal;
-import com.mokiat.data.front.parser.OBJObject;
-import com.mokiat.data.front.parser.OBJTexCoord;
-import com.mokiat.data.front.parser.OBJVertex;
-
 public class OBJParserBasicTest extends AbstractOBJParserTest {
 	
 	@Before

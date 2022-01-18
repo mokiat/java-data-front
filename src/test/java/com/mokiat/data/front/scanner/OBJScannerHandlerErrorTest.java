@@ -28,7 +28,6 @@ import org.mockito.Mockito;
 import com.mokiat.data.front.common.IFastFloat;
 import com.mokiat.data.front.common.IFastInt;
 import com.mokiat.data.front.error.WFException;
-import com.mokiat.data.front.scanner.IOBJScannerHandler;
 import com.mokiat.data.front.test.WFResourceFixture;
 
 public class OBJScannerHandlerErrorTest {

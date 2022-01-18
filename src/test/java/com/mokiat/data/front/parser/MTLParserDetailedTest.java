@@ -23,8 +23,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.mokiat.data.front.parser.MTLMaterial;
-
 public class MTLParserDetailedTest extends AbstractMTLParserTest {
 	
 	@Test

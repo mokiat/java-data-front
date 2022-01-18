@@ -27,8 +27,6 @@ import org.mockito.Mockito;
 import com.mokiat.data.front.common.IFastFloat;
 import com.mokiat.data.front.common.MTLLimits;
 import com.mokiat.data.front.error.WFSizeException;
-import com.mokiat.data.front.scanner.IMTLScannerHandler;
-import com.mokiat.data.front.scanner.MTLLimitingScannerHandler;
 import com.mokiat.data.front.test.WFResourceFixture;
 
 public class MTLLimitingScannerHandlerTest {

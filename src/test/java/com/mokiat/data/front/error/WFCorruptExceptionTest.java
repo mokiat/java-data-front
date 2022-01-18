@@ -22,8 +22,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.mokiat.data.front.error.WFCorruptException;
-
 public class WFCorruptExceptionTest extends AbstractWFExceptionTest {
 	
 	@Test

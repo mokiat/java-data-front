@@ -18,13 +18,6 @@ package com.mokiat.data.front.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import com.mokiat.data.front.parser.IOBJParser;
-import com.mokiat.data.front.parser.OBJDataReference;
-import com.mokiat.data.front.parser.OBJModel;
-import com.mokiat.data.front.parser.OBJNormal;
-import com.mokiat.data.front.parser.OBJParser;
-import com.mokiat.data.front.parser.OBJTexCoord;
-import com.mokiat.data.front.parser.OBJVertex;
 import com.mokiat.data.front.parser.OBJTexCoord.Type;
 import com.mokiat.data.front.test.WFResourceFixture;
 

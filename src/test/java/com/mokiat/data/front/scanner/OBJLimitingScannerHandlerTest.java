@@ -28,8 +28,6 @@ import com.mokiat.data.front.common.IFastFloat;
 import com.mokiat.data.front.common.IFastInt;
 import com.mokiat.data.front.common.OBJLimits;
 import com.mokiat.data.front.error.WFSizeException;
-import com.mokiat.data.front.scanner.IOBJScannerHandler;
-import com.mokiat.data.front.scanner.OBJLimitingScannerHandler;
 import com.mokiat.data.front.test.WFResourceFixture;
 
 public class OBJLimitingScannerHandlerTest {

@@ -179,7 +179,7 @@ One only needs to add the following configuration in their `pom.xml` file to get
 	<dependency>
 		<groupId>com.github.mokiat</groupId>
 		<artifactId>java-data-front</artifactId>
-		<version>v2.0.0</version>
+		<version>v2.0.1</version>
 	</dependency>
 </dependencies>
 ```

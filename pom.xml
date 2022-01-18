@@ -7,7 +7,7 @@
 
 	<groupId>com.mokiat</groupId>
 	<artifactId>com.mokiat.data.front</artifactId>
-	<version>2.0.1-SNAPSHOT</version>
+	<version>2.0.1</version>
 	<packaging>jar</packaging>
 
 	<url>https://github.com/mokiat/java-data-front</url>
